@@ -4,6 +4,9 @@ GO
 CREATE DATABASE PRS
 GO 
 
+DROP DATABASE IF EXISTS PRS;
+GO
+
 USE PRS
 GO
 
@@ -13,17 +16,17 @@ SELECT * FROM Product;
 SELECT * FROM Request;
 SELECT * FROM RequestLine;
 
-CREATE TABLE Vendor
+CREATE TABLE Users
 (
-	Id			INT				NOT NULL IDENTITY PRIMARY KEY
-	UserName    VARCHAR(30)		NOT NULL UNIQUE,
-	Password 	VARCHAR(30)		NOT NULL,
-	FirstName	VARCHAR(30)		NOT NULL,
-	LastName    VARCHAR(30)     NOT NULL,
-	Phone       VARCHAR(12)     NULL,
-	Email       VARCHAR(255)    NULL,
-	IsReviewer  BIT             NOT NULL,
-	IsAdmin     BIT             NOT NULL,
+	Id			INT				    NOT NULL IDENTITY PRIMARY KEY
+	UserName    NVARCHAR(30)		NOT NULL UNIQUE,
+	Password 	NVARCHAR(30)		NOT NULL,
+	FirstName	NVARCHAR(30)		NOT NULL,
+	LastName    NVARCHAR(30)        NOT NULL,
+	Phone       VARCHAR(12)        NULL,
+	Email       VARCHAR(255)       NULL,
+	IsReviewer  BIT               NOT NULL,
+	IsAdmin     BIT               NOT NULL,
 );
 
 CREATE TABLE Vendor
@@ -53,7 +56,7 @@ CREATE TABLE Product
 	
 );
 
-DROP TABLE Request;
+
 CREATE TABLE Request
 (
 
@@ -61,8 +64,8 @@ CREATE TABLE Request
 	Description     VARCHAR(80)		NOT NULL,
 	Justification 	VARCHAR(80)		NOT NULL,
 	RejectionReason	VARCHAR(80)	    NULL,
-	DeliveryMode    VARCHAR(20)     NOT NULL,
-	SubmittedDate   DATE             NOT NULL,
+	DeliveryMode    VARCHAR(20)     NOT NULL  DEFAULT 'Pickup',
+	SubmittedDate   DATE             NOT NULL DEFAULT GETDATE(),
 	DateNeeded      DATE            NOT NULL,
 	Status          VARCHAR(10)     NOT NULL,
 	Total           DECIMAL(11,2)   NOT NULL,
